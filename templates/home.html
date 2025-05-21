@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+  rel="stylesheet"
+>
+
+<style>
+  body {
+    background: #f4f4f4;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  /* Header */
+  header {
+    background: #001f3f;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+  header h1 {
+    font-size: 36px;
+    margin: 5px 0;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  /* News Grid */
+/* News Container */
+.news-container {
+    width: 90%;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Always 2 posts per row */
+    gap: 20px;
+    justify-content: center;
+}
+
+/* News Card */
+.news-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 15px;
+}
+
+/* Title */
+.news-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #001f3f;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* News Container */
+.news-container {
+    width: 90%;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: 1fr; /* One column layout */
+    gap: 20px;
+}
+
+/* News Card */
+.news-card {
+    width: 100%;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 15px;
+}
+
+/* Title */
+.news-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #001f3f;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Image */
+.image-container img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    border-radius: 10px;
+}
+
+/* Content */
+.news-content {
+    text-align: center;
+    padding: 10px;
+}
+
+.news-meta {
+  display: flex;
+  justify-content: space-between;  /* Space out the author and date */
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.news-meta .author {
+  font-weight: bold;  /* Bold the author name */
+}
+
+.news-meta .date {
+  color: #888;
+  font-style: italic;
+  text-align: right;  /* Align the date to the right */
+}
+
+/* Responsive: On Bigger Screens (Show 2 in One Column) */
+@media (min-width: 1024px) {
+    .news-container {
+        grid-template-columns: 1fr 1fr; /* Two columns */
+    }
+}
+
+
+    .news-meta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .news-meta .date {
+      margin-top: 4px;
+    }
+  
+</style>
+
+<header>
+  <h1>Latest POSTS</h1>
+</header>
+
+<div class="news-container">
+  {% for post in posts %}
+    <div class="news-card">
+      <!-- Title above the image -->
+      <div class="news-title">
+        <h2>{{ post.title }}</h2>
+      </div>
+      {% if post.image %}
+        <div class="image-container">
+          <img src="{{ post.image.url }}" alt="Post Image">
+        </div>
+      {% endif %}
+      <div class="news-content">
+        <div class="news-meta">
+          <div class="author">By {{ post.author }}</div>
+          <div class="date">Published on {{ post.date_created|date:"F d, Y" }}</div>
+        </div>
+        <p>{{ post.content }}</p>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% endblock content %}
